@@ -58,5 +58,7 @@ jobs:
         import os
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
         tools.meiriyiwen().print()
+      env:
+        FILE_PATH: ${{ github.workspace }}/.github/tools.py
     
         
