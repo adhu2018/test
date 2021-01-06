@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -23,6 +23,39 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install requests
     - name: Test
       run: |
-        python -h
+        python -list
+    - name: download tools.py
+      shell: python
+      run: |
+        import requests,os
+        res = requests.get('https://github.com/adhu2018/tools/raw/master/tools.py')
+        with open(os.environ["FILE_PATH"], 'wb') as f:
+          f.write(res.content)
+      env:
+        FILE_PATH: ${{ github.workspace }}/.github/tools.py
+    - name: meiriyiwen
+      shell: python
+      run: |
+        def reload_module(_module, path=None, raise_=False):
+          if path:
+            import sys
+            sys_path_temp = list(sys.path)
+            sys.path.insert(0, path)
+          try:
+            import importlib
+            module_ = importlib.import_module(".", _module)
+            _module_ = importlib.reload(module_)
+            return _module_
+          except (ImportError, ModuleNotFoundError) as err:
+            if path:
+              sys.path = sys_path_temp
+            if raise_:
+              raise err
+          return None
+        tools = reload_module("tools", path=os.environ["FILE_PATH"])
+        tools.meiriyiwen().print()
+    
+        
