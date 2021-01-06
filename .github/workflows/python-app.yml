@@ -31,6 +31,7 @@ jobs:
     - name: download tools.py
       shell: python
       run: |
+        # -*- coding: utf-8 -*-
         import requests,os
         
         def reload_module(_module, path=None, raise_=False):
@@ -54,8 +55,21 @@ jobs:
         with open("{}tools.py".format(os.environ["FILE_PATH"]), 'wb') as f:
           f.write(res.content)
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
-        tools.meiriyiwen().print()
+        result = tools.meiriyiwen().print(False)
+        with open("{}result.txt".format(os.environ["FILE_PATH"]), 'wb') as f:
+          f.write(res.content)
       env:
         FILE_PATH: ${{ github.workspace }}/.github/
-    
-        
+    - name: Send mail
+      uses: dawidd6/action-send-mail@v2
+      with:
+        server_address: smtp.163.com
+        server_port: 465
+        username: ${{secrets.EMAIL_NAME}}
+        password: ${{secrets.EMAIL_PASSWORD}}
+        subject: Github Actions job result
+        body: file://.github/result.txt
+        to: qa455355@163.com
+        from: GitHub Actions
+      env:
+        FILE_PATH: ${{ github.workspace }}/.github/
