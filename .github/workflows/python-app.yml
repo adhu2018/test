@@ -55,7 +55,7 @@ jobs:
         with open("{}tools.py".format(os.environ["FILE_PATH"]), 'wb') as f:
           f.write(res.content)
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
-        result = tools.meiriyiwen().print(False)
+        result = tools.meiriyiwen(new=True).print(False)
         with open("{}result.txt".format(os.environ["FILE_PATH"]), 'w', encoding="utf8") as f:
           f.write(result)
       env:
