@@ -55,6 +55,7 @@ jobs:
             if raise_:
               raise err
           return None
+        import os
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
         tools.meiriyiwen().print()
     
