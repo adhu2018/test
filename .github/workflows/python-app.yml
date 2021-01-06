@@ -56,7 +56,7 @@ jobs:
           f.write(res.content)
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
         result = tools.meiriyiwen().print(False)
-        with open("{}result.txt".format(os.environ["FILE_PATH"]), 'wb') as f:
+        with open("{}result.txt".format(os.environ["FILE_PATH"]), 'w', encoding="utf8") as f:
           f.write(result)
       env:
         FILE_PATH: ${{ github.workspace }}/.github/
