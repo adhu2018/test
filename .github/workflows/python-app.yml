@@ -48,13 +48,13 @@ jobs:
             if raise_:
               raise err
             return None
-        
+      
         res = requests.get('https://github.com/adhu2018/tools/raw/master/tools.py')
-        with open(os.environ["FILE_PATH"], 'wb') as f:
+        with open("{}tools.py".format(os.environ["FILE_PATH"]), 'wb') as f:
           f.write(res.content)
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
         tools.meiriyiwen().print()
       env:
-        FILE_PATH: ${{ github.workspace }}/.github/tools.py
+        FILE_PATH: ${{ github.workspace }}/.github/
     
         
