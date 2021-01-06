@@ -57,7 +57,7 @@ jobs:
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
         result = tools.meiriyiwen().print(False)
         with open("{}result.txt".format(os.environ["FILE_PATH"]), 'wb') as f:
-          f.write(res.content)
+          f.write(result)
       env:
         FILE_PATH: ${{ github.workspace }}/.github/
     - name: Send mail
@@ -71,5 +71,3 @@ jobs:
         body: file://.github/result.txt
         to: qa455355@163.com
         from: GitHub Actions
-      env:
-        FILE_PATH: ${{ github.workspace }}/.github/
