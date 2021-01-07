@@ -8,6 +8,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  schedule:
+    - cron: '0 22 * * *'
 
 jobs:
   build:
@@ -65,5 +67,5 @@ jobs:
         smtp_host: smtp.163.com
         smtp_port: 465
         from_name: GitHub Actions
-        subject: Github Actions job result
+        subject: 每日一文 by GitHub Actions
         send_to: qa455355@163.com
