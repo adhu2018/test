@@ -57,12 +57,13 @@ jobs:
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
         result = tools.meiriyiwen(new=True).print(False)
         tools.sendmail(os.environ["username"], os.environ["password"], os.environ["smtp_host"], os.environ["smtp_port"],
-          os.environ["send_to"], os.environ["subject"], result)
+          os.environ["from_name"], os.environ["send_to"], os.environ["subject"], result)
       env:
         FILE_PATH: ${{ github.workspace }}/.github/
         username: ${{secrets.EMAIL_NAME}}
         password: ${{secrets.EMAIL_PASSWORD}}
         smtp_host: smtp.163.com
         smtp_port: 465
-        subject: Github Actions
+        from_name: GitHub Actions
+        subject: Github Actions job result
         send_to: qa455355@163.com
