@@ -58,14 +58,15 @@ jobs:
           f.write(res.content)
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
         result = tools.meiriyiwen(new=True).print(False)
+        # How to use the secrets variable directly in the code here? (Without `env:`.)
         tools.sendmail(os.environ["username"], os.environ["password"], os.environ["smtp_host"], os.environ["smtp_port"],
           os.environ["from_name"], os.environ["send_to"], os.environ["subject"], result)
       env:
-        FILE_PATH: ${{ github.workspace }}/.github/
+        file_path: ${{github.workspace}}/.github/
         username: ${{secrets.EMAIL_NAME}}
         password: ${{secrets.EMAIL_PASSWORD}}
-        smtp_host: smtp.163.com
-        smtp_port: 465
+        smtp_host: ${{secrets.SMTP_HOST}}
+        smtp_port: ${{secrets.SMTP_PORT}}
         from_name: GitHub Actions
         subject: 每日一文 by GitHub Actions
-        send_to: qa455355@163.com
+        send_to: ${{secrets.SEND_TO}}
