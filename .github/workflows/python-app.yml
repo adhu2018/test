@@ -54,7 +54,8 @@ jobs:
             return None
       
         res = requests.get('https://github.com/adhu2018/tools/raw/master/tools.py')
-        with open("{}tools.py".format(os.environ["FILE_PATH"]), 'wb') as f:
+        _path = os.path.join(os.environ["FILE_PATH"], "tools.py")
+        with open(_path, 'wb') as f:
           f.write(res.content)
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
         result = tools.meiriyiwen(new=True).print(False)
