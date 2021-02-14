@@ -54,7 +54,7 @@ jobs:
             return None
       
         res = requests.get('https://github.com/adhu2018/tools/raw/master/tools.py')
-        _path = os.path.join(os.environ["FILE_PATH"], "tools.py")
+        _path = os.path.join(os.environ["FILE_PATH"], ".github", "tools.py")
         with open(_path, 'wb') as f:
           f.write(res.content)
         tools = reload_module("tools", path=os.environ["FILE_PATH"])
@@ -63,7 +63,7 @@ jobs:
         tools.sendmail(os.environ["username"], os.environ["password"], os.environ["smtp_host"], os.environ["smtp_port"],
           os.environ["from_name"], os.environ["send_to"], os.environ["subject"], result)
       env:
-        file_path: ${{github.workspace}}/.github/
+        file_path: ${{github.workspace}}
         username: ${{secrets.EMAIL_NAME}}
         password: ${{secrets.EMAIL_PASSWORD}}
         smtp_host: ${{secrets.SMTP_HOST}}
