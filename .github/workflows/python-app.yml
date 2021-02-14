@@ -57,7 +57,8 @@ jobs:
         _path = os.path.join(os.environ["FILE_PATH"], ".github", "tools.py")
         with open(_path, 'wb') as f:
           f.write(res.content)
-        tools = reload_module("tools", path=os.environ["FILE_PATH"])
+        _path = os.path.join(os.environ["FILE_PATH"], ".github")
+        tools = reload_module("tools", path=_path)
         result = tools.meiriyiwen(new=True).print(False)
         # How to use the secrets variable directly in the code here? (Without `env:`.)
         tools.sendmail(os.environ["username"], os.environ["password"], os.environ["smtp_host"], os.environ["smtp_port"],
